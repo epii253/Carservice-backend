@@ -1,0 +1,4 @@
+id,created_at,removed,updated_at,compatible_models,price,part_name,part_type
+a1c2e3f4-1111-4c3a-9a11-aaaaaaaaaaaa,2026-03-14 12:10:00,false,2026-03-14 12:10:00,"[""bmw320i""]",50000.00,"17'''' Standard",Wheel
+b2d3f4a5-2222-4d4b-8b22-bbbbbbbbbbbb,2026-03-14 12:11:00,false,2026-03-14 12:11:00,"[""bmw320i"",""bmw330i""]",95000.00,"18'''' Aero",Wheel
+c3e4a5b6-3333-4e5c-9c33-cccccccccccc,2026-03-14 12:12:00,false,2026-03-14 12:12:00,"[""bmw320i"",""bmw330i"",""bmwM340i""]",145000.00,"19'''' M-Sport",Wheel

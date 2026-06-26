@@ -1,0 +1,257 @@
+databaseChangeLog:
+- changeSet:
+    id: 1776684359683-1
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: car_ordersPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: model_id
+            type: UUID
+        - column:
+            name: order_type
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: parts
+            type: JSONB
+        - column:
+            name: state
+            type: VARCHAR(255)
+        - column:
+            name: manager_id
+            type: UUID
+        - column:
+            name: customer_id
+            type: UUID
+        tableName: car_orders
+- changeSet:
+    id: 1776684359683-2
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: outbox_eventPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: available_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: event_type
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: payload
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            name: retry_count
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: status
+            type: VARCHAR(255)
+        tableName: outbox_events
+- changeSet:
+    id: 1776684359683-3
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: test_drive_carsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: test_car_model
+            type: UUID
+        tableName: test_drive_cars
+- changeSet:
+    id: 1776684359683-4
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: test_drive_ticketsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: test_date
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: test_drive_car_id
+            type: UUID
+        - column:
+            name: user_id
+            type: UUID
+        tableName: test_drive_tickets
+- changeSet:
+    id: 1776684359683-5
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: usersPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: keycloak_id
+            type: UUID
+        - column:
+            name: user_name
+            type: VARCHAR(255)
+        - column:
+            name: role
+            type: VARCHAR(255)
+        tableName: users
+- changeSet:
+    id: 1776684359683-6
+    author: epii (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: keycloak_id
+        constraintName: UC_USERSKEYCLOAK_ID_COL
+        tableName: users
+- changeSet:
+    id: 1776684359683-7
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: customer_id
+        baseTableName: car_orders
+        constraintName: FK77rwf99neeq1nt77qprvtgcnw
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1776684359683-8
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: test_drive_tickets
+        constraintName: FKoit33af6vs5cufsrtwaworc3e
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1776684359683-9
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: manager_id
+        baseTableName: car_orders
+        constraintName: FKr69o59v6kfm9n91mnqt0soqhu
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1776684359683-10
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: test_drive_car_id
+        baseTableName: test_drive_tickets
+        constraintName: FKtej3ogjnk0a1mtrvuc7j73krh
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: test_drive_cars
+        validate: true
+

@@ -1,0 +1,778 @@
+databaseChangeLog:
+- changeSet:
+    id: 1777032658358-1
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: build_order_id
+            type: UUID
+        - column:
+            name: required_parts
+            type: VARCHAR(255)
+        tableName: build_order_required_parts
+- changeSet:
+    id: 1777032658358-2
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: build_ordersPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: build_order_status
+            type: VARCHAR(255)
+        - column:
+            name: car
+            type: JSONB
+        - column:
+            constraints:
+              nullable: false
+            name: in_charge
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: order_type
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: source_order_id
+            type: UUID
+        tableName: build_orders
+- changeSet:
+    id: 1777032658358-3
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: car_modelsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: brand_name
+            type: VARCHAR(255)
+        - column:
+            name: car_case
+            type: VARCHAR(255)
+        - column:
+            name: color
+            type: VARCHAR(255)
+        - column:
+            name: gear_box_type
+            type: VARCHAR(255)
+        - column:
+            name: model_name
+            type: VARCHAR(255)
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: wheel_drive
+            type: VARCHAR(255)
+        - column:
+            name: engine_id
+            type: UUID
+        - column:
+            name: interior_id
+            type: UUID
+        - column:
+            name: rudder_id
+            type: UUID
+        - column:
+            name: transmission_id
+            type: UUID
+        - column:
+            name: wheel_id
+            type: UUID
+        tableName: car_models
+- changeSet:
+    id: 1777032658358-4
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: engine_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: engine_id
+            type: UUID
+        tableName: engine_stocks
+- changeSet:
+    id: 1777032658358-5
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: enginesPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        - column:
+            name: engine_type
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: power
+            type: FLOAT4
+        - column:
+            constraints:
+              nullable: false
+            name: volume
+            type: FLOAT4
+        tableName: engines
+- changeSet:
+    id: 1777032658358-6
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: gear_box_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: gear_box_id
+            type: UUID
+        tableName: gear_box_stocks
+- changeSet:
+    id: 1777032658358-7
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: gear_boxesPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        - column:
+            name: gear_box_type
+            type: VARCHAR(255)
+        tableName: gear_boxes
+- changeSet:
+    id: 1777032658358-8
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: interior_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: interior_id
+            type: UUID
+        tableName: interior_stocks
+- changeSet:
+    id: 1777032658358-9
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: interiorsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        tableName: interiors
+- changeSet:
+    id: 1777032658358-10
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: car_model_id
+            type: UUID
+        - column:
+            name: required_parts
+            type: VARCHAR(255)
+        tableName: required_part_model_stock
+- changeSet:
+    id: 1777032658358-11
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: required_part_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        - column:
+            name: car_model_id
+            type: UUID
+        tableName: required_part_stocks
+- changeSet:
+    id: 1777032658358-12
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rudder_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: rudder_id
+            type: UUID
+        tableName: rudder_stocks
+- changeSet:
+    id: 1777032658358-13
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: ruddersPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        tableName: rudders
+- changeSet:
+    id: 1777032658358-14
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: transmission_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: transmission_id
+            type: UUID
+        tableName: transmission_stocks
+- changeSet:
+    id: 1777032658358-15
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: transmissionsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        tableName: transmissions
+- changeSet:
+    id: 1777032658358-16
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: wheel_stocksPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: wheel_id
+            type: UUID
+        tableName: wheel_stocks
+- changeSet:
+    id: 1777032658358-17
+    author: epii (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: wheelsPK
+            name: id
+            type: UUID
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            name: removed
+            type: BOOLEAN
+        - column:
+            name: updated_at
+            type: TIMESTAMP(6) WITH TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: compatible_models
+            type: JSONB
+        - column:
+            name: price
+            type: numeric(38, 2)
+        - column:
+            name: part_name
+            type: VARCHAR(255)
+        - column:
+            name: part_type
+            type: VARCHAR(255)
+        tableName: wheels
+- changeSet:
+    id: 1777032658358-18
+    author: epii (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: source_order_id
+        constraintName: UC_BUILD_ORDERSSOURCE_ORDER_ID_COL
+        tableName: build_orders
+- changeSet:
+    id: 1777032658358-19
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: build_order_id
+        baseTableName: build_order_required_parts
+        constraintName: FK11mlsverjiyk6fmm0qnlm2471
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: build_orders
+        validate: true
+- changeSet:
+    id: 1777032658358-20
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: interior_id
+        baseTableName: interior_stocks
+        constraintName: FK205t6wncmnbresihwovp20cbp
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: interiors
+        validate: true
+- changeSet:
+    id: 1777032658358-21
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: car_model_id
+        baseTableName: required_part_model_stock
+        constraintName: FK2jd4ylwsn36gudtkjggy4qkpb
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: car_models
+        validate: true
+- changeSet:
+    id: 1777032658358-22
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: rudder_id
+        baseTableName: car_models
+        constraintName: FK3cnch8n6ajibtbo8es6wwvsv4
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: rudders
+        validate: true
+- changeSet:
+    id: 1777032658358-23
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: interior_id
+        baseTableName: car_models
+        constraintName: FKbby2nyn90vg83qsra055b1fte
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: interiors
+        validate: true
+- changeSet:
+    id: 1777032658358-24
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: transmission_id
+        baseTableName: transmission_stocks
+        constraintName: FKfvhqy2ccsbje4wplmqr25nu7u
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: transmissions
+        validate: true
+- changeSet:
+    id: 1777032658358-25
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: gear_box_id
+        baseTableName: gear_box_stocks
+        constraintName: FKg1sho4kh10p8xpferxbm70xc3
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: gear_boxes
+        validate: true
+- changeSet:
+    id: 1777032658358-26
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: rudder_id
+        baseTableName: rudder_stocks
+        constraintName: FKia0adywm3orn61epppttij8a7
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: rudders
+        validate: true
+- changeSet:
+    id: 1777032658358-27
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: engine_id
+        baseTableName: engine_stocks
+        constraintName: FKluxb7vo7fre0c6d7ltnmq1od6
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: engines
+        validate: true
+- changeSet:
+    id: 1777032658358-28
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: car_model_id
+        baseTableName: required_part_stocks
+        constraintName: FKmr23m708ptvg1t532ca31cyj2
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: car_models
+        validate: true
+- changeSet:
+    id: 1777032658358-29
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: wheel_id
+        baseTableName: wheel_stocks
+        constraintName: FKnmx0p7lhht6huy63wnclpmjib
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: wheels
+        validate: true
+- changeSet:
+    id: 1777032658358-30
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: engine_id
+        baseTableName: car_models
+        constraintName: FKoos97wohppf9lpt4nj0c5dwaj
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: engines
+        validate: true
+- changeSet:
+    id: 1777032658358-31
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: wheel_id
+        baseTableName: car_models
+        constraintName: FKpaof91lwg6gbjlid13dkc3y5t
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: wheels
+        validate: true
+- changeSet:
+    id: 1777032658358-32
+    author: epii (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: transmission_id
+        baseTableName: car_models
+        constraintName: FKpiypcang8ioasgmdgb5fpoeir
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: transmissions
+        validate: true
+

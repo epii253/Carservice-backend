@@ -1,0 +1,4 @@
+id,created_at,removed,updated_at,compatible_models,price,part_name,part_type
+f1a2b3c4-6666-4b8f-9f66-ffffffffffff,2026-03-14 12:30:00,false,2026-03-14 12:30:00,"[""bmw320i""]",100000.00,"Тканевый Graphite",Interior
+a2b3c4d5-7777-4c9a-8a77-aaaaaaaaaaaa,2026-03-14 12:31:00,false,2026-03-14 12:31:00,"[""bmw320i"",""bmw330i""]",210000.00,"Кожаный Dakota",Interior
+b3c4d5e6-8888-4dab-9b88-bbbbbbbbbbbb,2026-03-14 12:32:00,false,2026-03-14 12:32:00,"[""bmw330i"",""bmwM340i""]",260000.00,"Спортивный Performance",Interior

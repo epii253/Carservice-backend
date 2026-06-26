@@ -1,0 +1,3 @@
+id,created_at,removed,updated_at,compatible_models,price,part_name,part_type
+6a1f9e2b-3c7d-4a2b-9f1e-111111111111,2026-03-14 12:00:00,false,2026-03-14 12:00:00,"[""bmw320i"",""bmw330i""]",10000.00,"Спортивный кожаный (Standard)",Rudder
+2b5d4c7f-8e9a-4b6c-8d2f-222222222222,2026-03-14 12:05:00,false,2026-03-14 12:05:00,"[""bmw320i"",""bmw330i"",""bmwM340i""]",35000.00,"M-Sport с подогревом",Rudder

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-08-load-required-parts
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/required-parts.csv
+            separator: ","
+            tableName: required_part_stocks

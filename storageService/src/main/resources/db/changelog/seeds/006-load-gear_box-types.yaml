@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-06-load-gear_box-types
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/gear_box-types.csv
+            separator: ","
+            tableName: gear_boxes

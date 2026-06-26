@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package domain.proto;
+
+option java_package = "ru.svyatniy.common.domain.proto";
+option java_multiple_files = true;
+
+service CarsService {
+  rpc CheckCarConfig (CheckCarConfigRequest) returns (CheckCarConfigResponse);
+
+  rpc GetAllCars (GetAllCarsRequest) returns (GetAllCarsResponse);
+
+  rpc GetCarById (GetCarByIdRequest) returns (GetCarByIdResponse);
+
+  rpc CheckAvalForTestDriven (CheckAvalForTestDrivenRequest) returns (CheckAvalForTestDrivenResponse);
+}
+
+message PartEntry {
+  string part_name = 1;
+  string part_id = 2;
+}
+
+message PartInfo {
+  string id = 1;
+  string name = 2;
+  string part_type = 3;
+}
+
+message CarInfo {
+  string id = 1;
+  string model_name = 2;
+  string brand_name = 3;
+  string color = 4;
+  float price = 5;
+  string gear_box_type = 6;
+  string car_case = 7;
+  PartInfo rudder_info = 8;
+  PartInfo wheel_info = 9;
+  PartInfo transmission_info = 10;
+  PartInfo interior_info = 11;
+  string wheel_drive = 12;
+  PartInfo engine_info = 13;
+  float engine_power = 14;
+  float engine_volume = 15;
+  string engine_type = 16;
+}
+
+message CheckCarConfigRequest {
+  string model_name = 1;
+  string color = 2;
+  string rudder_id = 3;
+  string wheel_id = 4;
+  string transmission_id = 5;
+  string interior_id = 6;
+  string engine_id = 7;
+}
+
+message CheckCarConfigResponse {
+  string model_id = 1;
+  repeated PartEntry parts = 2;
+}
+
+message GetAllCarsRequest { }
+
+message GetAllCarsResponse {
+  repeated CarInfo cars = 1;
+}
+
+message GetCarByIdRequest {
+  string car_id = 1;
+}
+
+message GetCarByIdResponse {
+  CarInfo car = 1;
+}
+
+message CheckAvalForTestDrivenRequest {
+  string id = 1;
+}
+
+message CheckAvalForTestDrivenResponse {
+  string id = 1;
+  bool is_available = 2;
+}

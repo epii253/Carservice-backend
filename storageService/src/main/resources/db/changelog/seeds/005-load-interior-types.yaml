@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-05-load-interior-types
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/interior-types.csv
+            separator: ","
+            tableName: interiors

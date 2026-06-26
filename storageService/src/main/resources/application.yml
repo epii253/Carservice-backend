@@ -1,0 +1,63 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          storage-client:
+            provider: keycloak
+            client-id: Storage_API
+            client-secret: 'O91w8@{f9,bbBu&*^KsN#eW>u<oyT7T#K'
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          keycloak:
+            token-uri: http://keycloak:8080/realms/lab_realm/protocol/openid-connect/token
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8080/realms/lab_realm/protocol/openid-connect/certs
+  kafka:
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: build_orders
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: kafka:9092
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: 'true'
+  datasource:
+    password: ${DB_PASSWORD}
+    username: ${DB_USER}
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:mydb}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: 'false'
+    properties:
+      hibernate:
+        format_sql: 'false'
+app:
+  outbox:
+    poll-interval-ms: '2000'
+  kafka:
+    write_topic: build_orders
+    listen_topic: request_orders
+keycloak:
+  enabled: 'true'
+  url: http://keycloak:8080
+  role-path: /admin/realms/lab_realm/roles/
+
+grpc:
+  server:
+    port: 9091
+    security:
+      enabled: false
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web.client.RestClient: DEBUG

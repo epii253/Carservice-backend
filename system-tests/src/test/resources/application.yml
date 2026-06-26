@@ -1,0 +1,15 @@
+services:
+  secrets:
+    storage: 'O91w8@{f9,bbBu&*^KsN#eW>u<oyT7T#K'
+    order: 'gA#1z+F9R9]li|.)w}[&HjkVbq-#y+9uN'
+logging:
+  level:
+    root: WARN
+    ru:
+      svyatniy: DEBUG
+    org:
+      hibernate:
+        SQL: DEBUG
+      springframework:
+        security: DEBUG
+debug: true

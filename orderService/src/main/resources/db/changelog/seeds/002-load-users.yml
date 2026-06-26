@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-02-load-users
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/users.csv
+            separator: ","
+            tableName: users

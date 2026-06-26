@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-init-schema.yaml
+  - include:
+      file: db/changelog/seeds/002-load-rudder-types.yaml
+  - include:
+      file: db/changelog/seeds/003-load-wheel-types.yaml
+  - include:
+      file: db/changelog/seeds/004-load-transmission-types.yaml
+  - include:
+      file: db/changelog/seeds/005-load-interior-types.yaml
+  - include:
+      file: db/changelog/seeds/006-load-gear_box-types.yaml
+  - include:
+      file: db/changelog/seeds/007-load-engine-types.yaml
+  - include:
+      file: db/changelog/seeds/008-load-car-models-types.yaml
+  - include:
+      file: db/changelog/seeds/009-load-required-parts.yaml

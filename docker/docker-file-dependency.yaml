@@ -1,0 +1,158 @@
+services:
+  database:
+    image: postgres:16
+    container_name: lab_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user -d app_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  database_storage:
+    image: postgres:16
+    container_name: lab_db_storage
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_db_storage
+      POSTGRES_USER: app_user_storage
+      POSTGRES_PASSWORD: app_password_storage
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data-storage:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user_storage -d app_db_storage"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  database_keycloak:
+    image: postgres:16
+    container_name: lab_db_keycloak
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_db_keycloak
+      POSTGRES_USER: app_user_keycloak
+      POSTGRES_PASSWORD: app_password_keycloak
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-data-keycloak:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user_keycloak -d app_db_keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: lab_keycloak
+    restart: unless-stopped
+    command: start-dev --import-realm --http-port 8008
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://database_keycloak:5432/app_db_keycloak
+      KC_DB_USERNAME: app_user_keycloak
+      KC_DB_PASSWORD: app_password_keycloak
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT: "false"
+    ports:
+      - "8008:8008"
+    depends_on:
+      database_keycloak:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+
+  order-service:
+    build:
+      context: ..
+      dockerfile: docker/orderservice/Dockerfile
+    container_name: order_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: app_db
+      DB_USER: app_user
+      DB_PASSWORD: app_password
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      database:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+
+  storage-service:
+    build:
+      context: ..
+      dockerfile: docker/storageservice/Dockerfile
+    container_name: storage_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: database_storage
+      DB_PORT: 5432
+      DB_NAME: app_db_storage
+      DB_USER: app_user_storage
+      DB_PASSWORD: app_password_storage
+    ports:
+      - "8081:8080"
+    networks:
+      - app-network
+    depends_on:
+      database_storage:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@localhost:9093'
+
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT'
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+      KAFKA_NODE_ID_FILE_CHECK: 'false'
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+  postgres-data-storage:
+  postgres-data-keycloak:
+
+networks:
+  app-network:

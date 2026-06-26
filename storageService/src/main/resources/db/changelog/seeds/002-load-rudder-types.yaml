@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-02-load-rudder-types
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/rudder-types.csv
+            separator: ","
+            tableName: rudders

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-03-load-wheel-types
+      author: epii
+      context: dev, test
+      changes:
+        - loadData:
+            file: db/changelog/seeds/init/wheels-types.csv
+            separator: ","
+            tableName: wheels

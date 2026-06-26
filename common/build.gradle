@@ -1,0 +1,75 @@
+plugins {
+    id 'java-library'
+    id 'com.google.protobuf' version '0.9.4'
+    id 'com.github.ben-manes.versions' version '0.54.0'
+}
+
+group = 'ru.svyatniy'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    all {
+        resolutionStrategy {
+            force 'io.grpc:grpc-core:1.63.0'
+            force 'io.grpc:grpc-api:1.63.0'
+            force 'io.grpc:grpc-stub:1.63.0'
+            force 'io.grpc:grpc-protobuf:1.63.0'
+            force 'io.grpc:grpc-netty-shaded:1.63.0'
+        }
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    api 'io.grpc:grpc-stub:1.63.0'
+    api 'io.grpc:grpc-protobuf:1.63.0'
+    api 'javax.annotation:javax.annotation-api:1.3.2'
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.25.3'
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.63.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        def version = it.candidate.version
+        version ==~ /.*[-.]alpha.*/
+                || version ==~ /.*[-.]beta.*/
+                || version ==~ /.*[-.]rc.*/
+                || version ==~ /.*[-.]RC.*/
+                || version ==~ /.*[-.]M\d.*/
+                || version ==~ /.*[-.]CR.*/
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

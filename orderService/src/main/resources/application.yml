@@ -1,0 +1,64 @@
+services:
+  storage-service:
+    url: http://storage-service:8080
+    car-validation-path: /cars/valid
+    testdrive-car-validation-path: /cars/able_testdirve
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          order-client:
+            provider: keycloak
+            client-id: Order_API
+            client-secret: gA#1z+F9R9]li|.)w}[&HjkVbq-#y+9uN
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          keycloak:
+            token-uri: http://keycloak:8080/realms/lab_realm/protocol/openid-connect/token
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8080/realms/lab_realm/protocol/openid-connect/certs
+  kafka:
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: build_order_approval
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: kafka:9092
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: 'true'
+  datasource:
+    password: ${DB_PASSWORD}
+    username: ${DB_USER}
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:mydb}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: 'false'
+    properties:
+      hibernate:
+        format_sql: 'false'
+app:
+  outbox:
+    poll-interval-ms: '2000'
+  kafka:
+    write_topic: request_orders
+    listen_topic: build_orders
+keycloak:
+  enabled: 'true'
+grpc:
+  client:
+    cars-service:
+      address: 'static://storage-service:9091'
+      negotiation-type: plaintext
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG

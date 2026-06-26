@@ -1,0 +1,4 @@
+id,created_at,removed,updated_at,compatible_models,price,part_name,part_type,engine_type,power,volume
+11111111-aaaa-4aaa-8001-aaaaaaaaaaaa,2026-03-14 13:15:00,false,2026-03-14 13:15:00,"[""bmw320i"",""bmwM340i""]",0.00,"B38",Engine,Petrol,184.0,2.0
+22222222-bbbb-4bbb-8002-bbbbbbbbbbbb,2026-03-14 13:16:00,false,2026-03-14 13:16:00,"[""bmw330i"",""bmwM340i""]",0.00,"B48",Engine,Petrol,258.0,2.0
+33333333-cccc-4ccc-8003-cccccccccccc,2026-03-14 13:17:00,false,2026-03-14 13:17:00,"[""bmw330i"",""bmwM340i""]",0.00,"B58",Engine,Petrol,374.0,3.0

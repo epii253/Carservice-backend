@@ -1,0 +1,64 @@
+plugins {
+    id 'org.springframework.boot' version '3.4.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id("org.liquibase.gradle") version "3.0.0"
+    id 'java'
+    id 'idea'
+    id 'com.github.ben-manes.versions' version '0.54.0'
+}
+
+group = 'ru.svyatniy'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    liquibaseRuntime project(':common')
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+
+    liquibaseRuntime sourceSets.main.output
+    liquibaseRuntime files(configurations.runtimeClasspath)
+}
+
+liquibase {
+    activities {
+        main {
+            changelogFile "storageService/src/main/resources/db/changelog/001-init-schema.yaml"
+            url 'jdbc:postgresql://localhost:5433/app_db_storage'
+            username 'app_user_storage'
+            password 'app_password_storage'
+            referenceUrl "hibernate:spring:domain,application,presentation?dialect=org.hibernate.dialect.PostgreSQLDialect&hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy"
+        }
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        def version = it.candidate.version
+        version ==~ /.*[-.]alpha.*/
+                || version ==~ /.*[-.]beta.*/
+                || version ==~ /.*[-.]rc.*/
+                || version ==~ /.*[-.]RC.*/
+                || version ==~ /.*[-.]M\d.*/
+                || version ==~ /.*[-.]CR.*/
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
